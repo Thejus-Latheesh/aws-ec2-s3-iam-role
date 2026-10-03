@@ -11,22 +11,14 @@ EC2, S3, IAM
 
 ## Steps
 1. Created S3 bucket `ec2-s3-project-thejus`
-2. Created IAM policy (see IAM Role
-
-## Objective
-Show how an E# EC2 + S3 Acces# EC2 + S3 Acces3. Created IAM rolesing an IAM Rolwith EC2 as the trusted entity
+2. Created IAM policy (see `policy.json`) with `s3:ListBucket`, `s3:GetObject`, `s3:PutObject`
+3. Created IAM role `EC2-S3-Role` with EC2 as the trusted entity
 4. Launched an Amazon Linux 2023 EC2 instance and attached the role
 5. Connected using EC2 Instance Connect
-6. Verified identity: → S3
+6. Verified identity: `aws sts get-caller-identity`
+7. Uploaded a file: `aws s3 cp test.txt s3://ec2-s3-project-thejus/`
+8. Downloaded it: `aws s3 cp s3://ec2-s3-project-thejus/test.txt .`
 
-## Services Used
-EC2, S37. Uploaded a file:sing an IAM Role
-
-## Objective
-Show how an EC2 ins8. Downloaded it: Using an IAM Role
-
-## Objective
-Show how an EC2 in
 ## Screenshots
 ![Bucket](screenshots/01-bucket.png)
 ![Role attached](screenshots/02-role-attached.png)
@@ -36,4 +28,11 @@ Show how an EC2 in
 ![IAM policy](screenshots/06-policy.png)
 
 ## Least Privilege Demo
-Deleting an object failed with *Access Denied* becauseole `EC2-S3-Role` wwas never granted to the IAM rolele
+Deleting an object failed with *Access Denied* because `s3:DeleteObject` was never granted to the IAM role `EC2-S3-Role`.
+
+## Key Learning
+- Never store AWS access keys in EC2 code
+- Use IAM roles for temporary, auto-rotating credentials
+
+## Cleanup
+Terminated the EC2 instance, emptied and deleted the bucket, deleted the role and policy.
