@@ -29,10 +29,3 @@ EC2, S3, IAM
 
 ## Least Privilege Demo
 Deleting an object failed with *Access Denied* because `s3:DeleteObject` was never granted to the IAM role `EC2-S3-Role`.
-
-## Key Learning
-- Never store AWS access keys in EC2 code
-- Use IAM roles for temporary, auto-rotating credentials
-
-## Cleanup
-Terminated the EC2 instance, emptied and deleted the bucket, deleted the role and policy.
